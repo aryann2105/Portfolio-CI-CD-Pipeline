@@ -1,0 +1,19 @@
+version: 0.2
+
+env:
+  variables:
+    S3_BUCKET: cicd-pipeline-website 
+
+phases:
+  build:
+    commands:
+      - echo "No build required"
+
+  post_build:
+    commands:
+      - echo "Deploying to S3"
+      - aws s3 sync . s3://$S3_BUCKET --delete
+
+artifacts:
+  files:
+    - '**/*'
